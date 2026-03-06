@@ -39,8 +39,8 @@ public class DoctorService {
     }
     public Doctor getDoctorById(Long id){
         try{
-            System.out.println("Doctor by id.");
-            return null;
+            Optional<Doctor> doctor = doctorRepository.findById(id);
+            return doctor.orElse(null);
         }catch(Exception e){
             System.out.println("Error message:" + e.getMessage());
             logger.error("An error occurred while fetching by Id {}: {}", id, e.getMessage());
@@ -57,25 +57,23 @@ public class DoctorService {
             return null;
         }
     }
-    public Doctor deleteDoctor(Long id){
+    public void deleteDoctor(Long id){
         try{
-            return null;
+            logger.info("Deleting doctor with id: {}", id);
+            doctorRepository.deleteById(id);
         }catch(Exception e){
             System.out.println("Error message:" + e.getMessage());
             logger.error("An error occurred while deleting the doctor:{}", e.getMessage());
-            return null;
         }
     }
-    public Doctor updateDoctor(Long id){
+    public Doctor updateDoctor(Long id, Doctor updatedDoctor){
         try{
-            Optional <Doctor> existingDoctor = doctorRepository.findById(id);
+            Optional<Doctor> existingDoctor = doctorRepository.findById(id);
             if(existingDoctor.isPresent()){
                 Doctor d = existingDoctor.get();
-                d.setName(d.getName());
-                d.setSpeciality(d.getSpeciality());
-                Doctor updatedDoctor = doctorRepository.save(d);
-
-                return updatedDoctor;
+                d.setName(updatedDoctor.getName());
+                d.setSpeciality(updatedDoctor.getSpeciality());
+                return doctorRepository.save(d);
             }else{
                 logger.error("Doctor with ID {} not found", id);
                 return null;

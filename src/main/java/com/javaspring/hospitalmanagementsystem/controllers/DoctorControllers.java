@@ -31,16 +31,17 @@ public class DoctorControllers {
     @GetMapping("/{id}")
     public Doctor getDoctorById(@PathVariable Long id){
         System.out.println("Doctor By id" + id);
-        return null;
+        return doctorService.getDoctorById(id);
     }
     @DeleteMapping("/{id}")
     public void deleteDoctor(@PathVariable Long id){
         System.out.println("Doctor Deleted");
+        doctorService.deleteDoctor(id);
     }
 
     @PutMapping("/{id}")
-    public void updateDoctor(@PathVariable Long id){
+    public void updateDoctor(@PathVariable Long id, @RequestBody Doctor doctor){
         System.out.println("Doctor Updated");
-        doctorService.updateDoctor(id);
+        doctorService.updateDoctor(id, doctor);
     }
 }
