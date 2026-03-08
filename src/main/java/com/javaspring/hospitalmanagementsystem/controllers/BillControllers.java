@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/bills")
@@ -27,7 +26,7 @@ public class BillControllers {
         return billService.createBill(bill);
     }
     @GetMapping("/{id}")
-    public Bill getBillById(@RequestBody Long id){
+    public Bill getBillById(@PathVariable Long id){
         System.out.println("Getting bill by id" + id);
         return billService.getBillById(id);
     }
@@ -37,8 +36,8 @@ public class BillControllers {
         billService.deleteBill(id);
     }
     @PutMapping("/{id}")
-    public void updateBill(@PathVariable Long id){
+    public void updateBill(@PathVariable Long id, @RequestBody Bill bill){
         System.out.println("Updated Bill" + id);
-        billService.updateBill(id);
+        billService.updateBill(id, bill);
     }
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -22,5 +23,5 @@ public class Appointment {
     private Long id;
     private long patientId;
     private long doctorId;
-    private String date;
+    private LocalDate date;
 }

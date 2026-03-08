@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
 
-import javax.print.Doc;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,7 +70,7 @@ public class DoctorService {
             if(existingDoctor.isPresent()){
                 Doctor d = existingDoctor.get();
                 d.setName(updatedDoctor.getName());
-                d.setSpeciality(updatedDoctor.getSpeciality());
+                d.setSpecialty(updatedDoctor.getSpecialty());
                 return doctorRepository.save(d);
             }else{
                 logger.error("Doctor with ID {} not found", id);

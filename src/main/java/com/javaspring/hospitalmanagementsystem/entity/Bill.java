@@ -2,6 +2,8 @@ package com.javaspring.hospitalmanagementsystem.entity;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,5 +23,6 @@ public class Bill {
     private Long id;
     private double amount;
     private Long patientId;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private BillStatus status;
 }

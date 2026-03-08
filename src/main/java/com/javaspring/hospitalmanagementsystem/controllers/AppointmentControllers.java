@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/appointments")
@@ -38,8 +37,9 @@ public class AppointmentControllers {
         appointmentService.deleteAppointment(id);
     }
 
-    public void updateAppointment(@PathVariable Long id){
+    @PutMapping("/{id}")
+    public void updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment){
         System.out.println("Appointment updated" + id);
-        appointmentService.updateAppointment(id);
+        appointmentService.updateAppointment(id, appointment);
     }
 }

@@ -35,8 +35,8 @@ public class AppointmentService {
     }
     public Appointment getAppointmentById(Long id){
         try{
-            System.out.println("Fetching Appointment by id.");
-            return null;
+            Optional<Appointment> appointment = appointmentRepository.findById(id);
+            return appointment.orElse(null);
         }catch(Exception e){
             System.out.println("Error message:" + e.getMessage());
             logger.error("An error occurred while getting the appointment by Id {}:{}",id, e.getMessage());
@@ -53,26 +53,24 @@ public class AppointmentService {
             return null;
         }
     }
-    public Appointment deleteAppointment(Long id){
+    public void deleteAppointment(Long id){
         try{
-            return null;
+            logger.info("Deleting appointment with id: {}", id);
+            appointmentRepository.deleteById(id);
         }catch(Exception e){
             System.out.println("Error message:" + e.getMessage());
             logger.error("An error occurred while deleteing the appointment:{}", e.getMessage());
-            return null;
         }
     }
-    public Appointment updateAppointment(Long id){
+    public Appointment updateAppointment(Long id, Appointment updatedAppointment){
         try{
             Optional<Appointment> existingAppointment = appointmentRepository.findById(id);
             if(existingAppointment.isPresent()){
                 Appointment a = existingAppointment.get();
-                a.setDoctorId(a.getDoctorId());
-                a.setPatientId(a.getPatientId());
-                a.setDate(a.getDate());
-                Appointment updatedAppointment = appointmentRepository.save(a);
-
-                return updatedAppointment;
+                a.setDoctorId(updatedAppointment.getDoctorId());
+                a.setPatientId(updatedAppointment.getPatientId());
+                a.setDate(updatedAppointment.getDate());
+                return appointmentRepository.save(a);
             }else{
                 logger.error("Appointment with ID {} is not found.", id);
                 return null;
