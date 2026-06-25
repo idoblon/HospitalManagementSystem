@@ -62,8 +62,8 @@ public class AppointmentService {
         try{
             return appointmentRepository.findById(id)
                     .map(a -> {
-                        a.setDoctorId(updatedAppointment.getDoctorId());
-                        a.setPatientId(updatedAppointment.getPatientId());
+                        a.setDoctor(updatedAppointment.getDoctor());
+                        a.setPatient(updatedAppointment.getPatient());
                         a.setDate(updatedAppointment.getDate());
                         return appointmentRepository.save(a);
                     })

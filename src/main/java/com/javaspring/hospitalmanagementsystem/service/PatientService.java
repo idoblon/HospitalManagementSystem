@@ -70,6 +70,9 @@ public class PatientService {
                         p.setName(updatedPatient.getName());
                         p.setAge(updatedPatient.getAge());
                         p.setGender(updatedPatient.getGender());
+                        p.setPhone(updatedPatient.getPhone());
+                        p.setEmail(updatedPatient.getEmail());
+                        p.setAddress(updatedPatient.getAddress());
                         return patientRepository.save(p);
                     })
                     .orElseGet(() -> {

@@ -41,7 +41,7 @@ public class BillService {
     }
     public Bill createBill(Bill bill){
         try{
-            logger.info("Creating a new bill for patientId: {}", bill.getPatientId());
+            logger.info("Creating a new bill for patientId: {}", bill.getPatient().getId());
             return billRepository.save(bill);
         }catch(Exception e){
             logger.error("An error occurred while creating a new Bill: {}", e.getMessage());
@@ -63,7 +63,7 @@ public class BillService {
                     .map(b -> {
                         b.setAmount(updatedBill.getAmount());
                         b.setStatus(updatedBill.getStatus());
-                        b.setPatientId(updatedBill.getPatientId());
+                        b.setPatient(updatedBill.getPatient());
                         return billRepository.save(b);
                     })
                     .orElseGet(() -> {

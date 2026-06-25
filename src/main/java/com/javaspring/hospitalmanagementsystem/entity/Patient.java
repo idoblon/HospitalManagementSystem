@@ -1,30 +1,38 @@
 package com.javaspring.hospitalmanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Data
 @Entity
 @Builder
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
-    private String name;
-    private String gender;
-    private int age;
-    private String phone;
-    private String email;
-    private String address;
 
+    @NotBlank(message = "Name is required")
+    private String name;
+
+    @NotBlank(message = "Gender is required")
+    private String gender;
+
+    @Min(value = 0, message = "Age must be non-negative")
+    private int age;
+
+    @NotBlank(message = "Phone is required")
+    private String phone;
+
+    @Email(message = "Email must be valid")
+    @NotBlank(message = "Email is required")
+    private String email;
+
+    @NotBlank(message = "Address is required")
+    private String address;
 }

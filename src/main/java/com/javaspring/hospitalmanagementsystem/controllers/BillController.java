@@ -30,7 +30,7 @@ public class BillController {
     }
     @PostMapping
     public ResponseEntity<Bill> createBill(@RequestBody Bill bill){
-        logger.info("Creating a new bill for patientid: {}", bill.getPatientId());
+        logger.info("Creating a new bill for patientid: {}", bill.getPatient().getId());
         return new ResponseEntity<>(billService.createBill(bill), HttpStatus.CREATED);
     }
     @GetMapping("/{id}")
